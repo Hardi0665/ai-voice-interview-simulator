@@ -34,3 +34,37 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Application d'interview vocale utilisant l'IA.
+
+## Fonctionnalités :
+- Enregistrement audio depuis le navigateur
+- Transcription automatique (Speech-to-Text)
+- Génération de réponse avec un LLM
+- Conversion de la réponse en audio (Text-to-Speech)
+- Interface conversationnelle en temps réel
+
+## Stack technique :
+- Next.js
+- React
+- OpenAI API
+- Web Audio API
+- TailwindCSS
+
+## Author
+Hardi — Full Stack Developer
+
+## Roadmap
+
+- [x] Voice recording
+- [x] AI responses
+- [x] Audio playback
+- [ ] Save conversation history
+- [ ] Authentication
+- [ ] Deploy to production
+
+## Installation
+Clone le projet :
+```bash
+git clone https://github.com/tonusername/ai-interview-app.git
+cd ai-interview-app
