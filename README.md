@@ -1,76 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # AI Voice Interview Simulator 🎙️
 
-Real-time AI-powered voice interview simulation using:
-- Speech-to-Text
-- LLM contextual reasoning
-- Text-to-Speech streaming
+Simulation d’entretien d’embauche en temps réel propulsée par l’IA, développée avec Next.js et OpenAI.
 
-Application d'interview vocale utilisant l'IA.
+Cette application reproduit une expérience d’entretien réaliste :
+l’utilisateur parle, l’IA transcrit la réponse, génère une question de relance contextuelle, puis répond avec une voix synthétisée — le tout avec une latence minimale.
 
-## Fonctionnalités :
-- Enregistrement audio depuis le navigateur
-- Transcription automatique (Speech-to-Text)
-- Génération de réponse avec un LLM
-- Conversion de la réponse en audio (Text-to-Speech)
-- Interface conversationnelle en temps réel
+## Demo
 
-## Stack technique :
-- Next.js
-- React
-- OpenAI API
-- Web Audio API
-- TailwindCSS
+Loom video: [https://www.loom.com/share/1d2a3a45c2784ac893956a3727623407]
 
-## Author
-Hardi — Full Stack Developer
+---
 
-## Roadmap
+## Fonctionnalités principales
 
-- [x] Voice recording
-- [x] AI responses
-- [x] Audio playback
-- [ ] Save conversation history
-- [ ] Authentication
-- [ ] Deploy to production
+Enregistrement audio directement depuis le navigateur (MediaRecorder API)
+
+Conversion voix → texte via OpenAI (Speech-to-Text)
+
+Génération de questions contextuelles (GPT-4o-mini)
+
+Synthèse vocale en streaming (Text-to-Speech OpenAI)
+
+Interface conversationnelle en temps réel
+
+Gestion stable des sessions de conversation
+
+Nettoyage explicite des ressources pour éviter les fuites mémoire
+
+## Architecture générale
+
+Pipeline :
+
+Parole utilisateur
+→ Enregistrement audio côté navigateur
+→ Requête POST vers /api/interview
+→ Transcription (Speech-to-Text)
+→ Génération de réponse via LLM
+→ Synthèse vocale (audio en streaming)
+→ Streaming audio vers le navigateur
+→ Lecture immédiate
+
+Tous les traitements liés à l’IA sont effectués côté serveur afin de garantir sécurité et performance.
+
+## Optimisation de la latence
+
+Latence moyenne de bout en bout : ~2 à 5 secondes
+
+Détail approximatif :
+
+STT (transcription) : 1–2 s
+
+LLM (génération) : 1–2 s
+
+TTS (synthèse vocale) : 1–2 s
+
+## Optimisations mises en place :
+
+Streaming de la réponse audio (pas d’attente du buffer complet)
+
+Limitation du nombre de tokens pour des réponses concises
+
+Mémoire conversationnelle en "fenêtre glissante" (réduction du contexte LLM)
+
+Gestion des conversations par identifiant de session
+
+Nettoyage des ressources (URL.revokeObjectURL, stopTracks)
+
+Stack technique
+
+Next.js (App Router + API Routes)
+
+React
+
+API OpenAI (STT + LLM + TTS)
+
+MediaRecorder API
+
+TailwindCSS
+
+## Sécurité
+
+Clé API OpenAI stockée dans .env.local
+
+Utilisation de la clé uniquement côté serveur
+
+Aucune donnée sensible exposée au client
 
 ## Installation
-Clone le projet :
+
+Clone the repository:
+
 ```bash
-git clone https://github.com/tonusername/ai-interview-app.git
-cd ai-interview-app
+git clone https://github.com/Hardi0665/ai-voice-interview-simulator.git
+cd ai-voice-interview-simulator
+```
